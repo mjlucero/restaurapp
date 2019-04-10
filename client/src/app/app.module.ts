@@ -6,6 +6,12 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { InterceptorService } from './shared/services';
+const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+];
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -62,10 +68,12 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     LoginComponent,
     RegisterComponent
   ],
-  providers: [{
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }],
-  bootstrap: [ AppComponent ]
+  providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
+    },
+    httpInterceptorProviders],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
