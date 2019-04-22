@@ -1,40 +1,8 @@
 const express = require('express');
-const Usuario = require('../models/usuario');
-
 const app = express();
+const userController = require('../controllers/userController');
 
-const bcrypt = require('bcrypt');
-const _ = require('underscore');
-
-app.get('/usuario', function (req, res) {
-
-    let desde = req.query.desde || 0;
-    desde = Number(desde);
-
-    let limite = req.query.limite || 5;
-    limite = Number(limite);
-    
-    Usuario.find({})
-        .skip(desde)
-        .limit(limite)
-        .exec((err, usuariosDB)=>{
-            
-            if (err) {
-                return res.status(400).json({
-                    ok: false,
-                    err
-                });
-            }
-
-            Usuario.count({}, (err, conteo)=>{
-                res.json({
-                    ok:true,
-                    usuarios: usuariosDB,
-                    total: conteo
-                });
-            });
-        })
-});
+app.get('/usuario', userController.getUsers);
 
 app.get('/usuario/:id', function (req, res) {
     res.send('Hello World')

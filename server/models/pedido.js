@@ -9,8 +9,20 @@ let pedidoSchema = new Schema({
     estado: { type: Number },
     horaEstimadaFin: { type: Date },
     tipoEnvio: { type: Number },
+    detalles: [{
+        _id: false,
+        subtotal: { type: Number, required: [true, 'El subtotal es necesario'] },
+        articulo: {
+            cantidad: { type: Number, required: [true, 'La cantidad es necesaria'] },
+            detalle: { type: Schema.ObjectId, ref: 'Articulo' }
+        },
+        articuloManufacturado: {
+            cantidad: { type: Number, required: [true, 'La cantidad es necesaria'] },
+            detalle: { type: Schema.ObjectId, ref: 'ArticuloManufacturado' }
+        }
+    }],
     cliente: { type: Schema.ObjectId, ref: 'Usuario' },
-    factura: { type: Schema.ObjectId, ref: 'Factura' }
+
 });
 
 pedidoSchema.pre('save', function (next) {

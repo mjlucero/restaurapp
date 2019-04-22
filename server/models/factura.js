@@ -8,18 +8,7 @@ let facturaSchema = new Schema({
     numero: { type: Number },
     montoDescuento: { type: Number },
     total: { type: Number },
-    detalles: [{
-        _id: false,
-        subtotal: { type: Number, required: [true, 'El subtotal es necesario'] },
-        articulo: {
-            cantidad: { type: Number, required: [true, 'La cantidad es necesaria'] },
-            detalle: { type: Schema.ObjectId, ref: 'Articulo' }
-        },
-        articuloManufacturado: {
-            cantidad: { type: Number, required: [true, 'La cantidad es necesaria'] },
-            detalle: { type: Schema.ObjectId, ref: 'ArticuloManufacturado' }
-        }
-    }]
+    pedido: { type: Schema.ObjectId, ref: 'Pedido' }
 });
 
 facturaSchema.pre('save', function (next) {
