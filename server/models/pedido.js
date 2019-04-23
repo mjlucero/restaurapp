@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Secuencia = require('./sequencia');
+const Secuence = require('./sequence');
 
 let Schema = mongoose.Schema;
 
@@ -28,7 +28,7 @@ let pedidoSchema = new Schema({
 pedidoSchema.pre('save', function (next) {
     let pedido = this;
 
-    Secuencia.findByIdAndUpdate({ _id: 'numeroPedido' }, { $inc: { seq: 1 } }, { new: true, upsert: true })
+    Secuence.findByIdAndUpdate({ _id: 'numeroPedido' }, { $inc: { seq: 1 } }, { new: true, upsert: true })
         .then(secuencia => {
             pedido.numero = secuencia.seq;
             next();

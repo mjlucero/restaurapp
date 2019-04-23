@@ -1,21 +1,16 @@
-const User = require('../models/usuario');
+const User = require('../models/user');
 
-exports.createUser = (user) => {
+//Create user
+exports.createUser = (user) => user.save();
 
-    try {
-        return user.save();
-    } catch (error) {
-        console.log(error);
-    }
-
-}
+//Get user
+exports.getUser = id => User.findById(id);
 
 //Get all users with pagination on querystring
-exports.getUsers = (desde, limite) => {
-    
-    try {
-        return User.find({}).skip(desde).limit(limite);
-    } catch (error) {
-        
-    }   
-}
+exports.getUsers = (from, limit) => User.find({}).skip(from).limit(limit);
+
+//Update user
+exports.updateUser = (id, body) => User.findOneAndUpdate(id, body, { new: true, runValidators: true });
+
+//Logic delete user
+exports.deleteUser = id => User.findOneAndUpdate(id, { active: false }, { new: true });
