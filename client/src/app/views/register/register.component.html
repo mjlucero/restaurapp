@@ -2,48 +2,91 @@
   <main class="main d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-5 mx-auto">
           <div class="card mx-4">
             <div class="card-body p-4">
-              <form>
-                <h1>Register</h1>
-                <p class="text-muted">Create your account</p>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-user"></i></span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Username" autocomplete="username" required>
-                </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">@</span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Email" autocomplete="email" required>
-                </div>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
-                  </div>
-                  <input type="password" class="form-control" placeholder="Password" autocomplete="new-password" required>
-                </div>
-                <div class="input-group mb-4">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="icon-lock"></i></span>
-                  </div>
-                  <input type="password" class="form-control" placeholder="Repeat password" autocomplete="new-password" required>
-                </div>
-                <button type="button" class="btn btn-block btn-success">Create Account</button>
+
+              <h3 class="mb-3">Completá tus datos</h3>
+              <form (ngSubmit)="createAccount()" [formGroup]="accountForm" novalidate>
+                <!-- ======================= -->
+                <!-- Nombre -->
+                <!-- ======================= -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput placeholder="Nombre" formControlName="name" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="accountForm.controls['name'].hasError('required')">
+                    El nombre es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+                <!-- ======================= -->
+                <!-- Apellido -->
+                <!-- ======================= -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Apellido</mat-label>
+                  <input matInput placeholder="Apellido" formControlName="lastname" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="accountForm.controls['lastname'].hasError('required')">
+                    El apellido es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+                <!-- ======================= -->
+                <!-- Email -->
+                <!-- ======================= -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Email</mat-label>
+                  <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="accountForm.controls['email'].hasError('required')">
+                    El email es <strong>requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="accountForm.controls['email'].hasError('pattern')">
+                    El email es <strong>incorrecto</strong>
+                  </mat-error>
+                </mat-form-field>
+                <!-- ======================= -->
+                <!-- Telefono -->
+                <!-- ======================= -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Teléfono</mat-label>
+                  <input matInput placeholder="Teléfono" formControlName="telephone" [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="accountForm.controls['telephone'].hasError('required')">
+                    El teléfono es <strong>requerido</strong>
+                  </mat-error>
+                  <mat-error *ngIf="accountForm.controls['telephone'].hasError('pattern')">
+                    El teléfono es <strong>incorrecto</strong>
+                  </mat-error>
+                </mat-form-field>
+                <!-- ======================= -->
+                <!-- Contraseña -->
+                <!-- ======================= -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Contraseña</mat-label>
+                  <input matInput placeholder="Contraseña" formControlName="password" [errorStateMatcher]="matcher"
+                    [type]="hidePass ? 'password' : 'text'">
+                  <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}
+                  </mat-icon>
+                  <mat-error *ngIf="accountForm.controls['password'].hasError('required')">
+                    La contraseña es <strong>requerida</strong>
+                  </mat-error>
+                </mat-form-field>
+                <!-- ======================= -->
+                <!-- Repetir contraseña -->
+                <!-- ======================= -->
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Repetir contraseña</mat-label>
+                  <input matInput placeholder="Repetir contraseña" formControlName="confirm_password"
+                    [errorStateMatcher]="matcher" [type]="hideRepass ? 'password' : 'text'">
+                  <mat-icon matSuffix (click)="hideRepass = !hideRepass">
+                    {{ hideRepass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error *ngIf="accountForm.controls['confirm_password'].hasError('required')">
+                    La contraseña es <strong>requerida</strong>
+                  </mat-error>
+                  <mat-error *ngIf="accountForm.controls['confirm_password'].hasError('confirmPassword')">
+                    La contraseñas no <strong>coinciden</strong>
+                  </mat-error>
+                </mat-form-field>
               </form>
-            </div>
-            <div class="card-footer p-4">
-              <div class="row">
-                <div class="col-6">
-                  <button class="btn btn-block btn-facebook" type="button"><span>facebook</span></button>
-                </div>
-                <div class="col-6">
-                  <button class="btn btn-block btn-twitter" type="button"><span>twitter</span></button>
-                </div>
-              </div>
+
+              <button class="pull-right" mat-raised-button color="primary">Crear cuenta</button>
+
             </div>
           </div>
         </div>
