@@ -1,1 +1,12 @@
 // Here you can add other styles
+.c-pointer{
+    cursor: pointer;
+}
+// Input outline
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: $primary;
+}
+input.mat-input-element {
+    font-size: 1.3em;
+
+}

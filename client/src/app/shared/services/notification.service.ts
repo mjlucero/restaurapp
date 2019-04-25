@@ -18,7 +18,8 @@ export class NotificationService {
             direction: 'ltr',
             duration: configs.duration,
             verticalPosition: configs.verticalPosition,
-            horizontalPosition: configs.horizontalPosition
+            horizontalPosition: configs.horizontalPosition,
+            panelClass: configs.getPanelClass()
         });
         // Action del boton, para despues
         // this.snackBar._openedSnackBarRef.onAction().subscribe(  () => {

@@ -7,8 +7,9 @@ export class Notification {
     public action: string;
     public verticalPosition: 'top' | 'bottom';
     public horizontalPosition: 'end' | 'start' | 'center' | 'left' | 'right';
+    private panelClass: string[];
 
-    constructor(message: string, action?: string, duration?: number) {
+    constructor(type: 'danger' | 'success' | 'info' | 'warning', message: string, action?: string, duration?: number) {
 
         this.action = action ? action : '';
         this.message = message;
@@ -16,6 +17,13 @@ export class Notification {
         this.duration = duration ? duration : 4 * 1000;
         this.verticalPosition = 'bottom';
         this.horizontalPosition = 'end';
+        this.panelClass = [`${type}-snack`];
+    }
 
+    public setPanelClass( classes: string[]) {
+        this.panelClass.concat(classes);
+    }
+    public getPanelClass(): string[] {
+        return this.panelClass;
     }
 }

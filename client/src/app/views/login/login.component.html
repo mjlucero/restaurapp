@@ -2,57 +2,45 @@
   <main class="main d-flex align-items-center">
     <div class="container">
       <div class="row">
-        <div class="col">
-          <div class="card-group w-50 m-auto">
-            <div class="card p-4">
-              <div class="card-body">
-                <form class="">
-                  <!-- ======================= -->
-                  <!-- Username -->
-                  <!-- ======================= -->
-                  <mat-form-field class="w-100">
-                    <mat-placeholder>
-                      <mat-icon class="fs-15" matPrefix>person</mat-icon>
-                    </mat-placeholder>
-                    <mat-placeholder
-                      class="ml-1"
-                      *ngIf="showUsernamePlaceholder"
-                      >Username
-                    </mat-placeholder>
-                    <input
-                      name="user"
-                      matInput
-                      (focus)="focusEvent('user')"
-                      (blur)="blurEvent('user')"
-                    />
-                  </mat-form-field>
-                  <!-- ======================= -->
-                  <!-- Password -->
-                  <!-- ======================= -->
-                  <mat-form-field class="w-100">
-                    <mat-placeholder>
-                      <mat-icon class="fs-15" matPrefix>vpn_key</mat-icon>
-                    </mat-placeholder>
-                    <mat-placeholder
-                      class="ml-1"
-                      *ngIf="showPasswordPlaceholder"
-                      >Password
-                    </mat-placeholder>
-                    <input
-                      matInput
-                      (focus)="focusEvent('password')"
-                      (blur)="blurEvent('password')"
-                    />
-                  </mat-form-field>
-                  <br />
-                  <br />
-                  <mat-checkbox class="mt-5">Mantener sesión</mat-checkbox>
-                  <br />
-                  <button class="pull-right" mat-raised-button color="primary">
+        <div class="col-md-5 mx-auto">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+
+              <div class="row mt-5 mb-5">
+                <div class="col-12">
+                  <div class="mx-auto round-element d-flex align-items-center justify-content-center text">
                     Login
-                  </button>
-                </form>
+                  </div>
+
+                </div>
               </div>
+
+
+              <form class="">
+                <!-- ======================= -->
+                <!-- Username -->
+                <!-- ======================= -->
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label> Email </mat-label>
+                  <input name="user" matInput [(ngModel)]="email" name="email" />
+                </mat-form-field>
+                <!-- ======================= -->
+                <!-- Password -->
+                <!-- ======================= -->
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label>Contraseña</mat-label>
+                  <input matInput [(ngModel)]="password" name="password" [type]="hidePass ? 'password' : 'text'" />
+                  <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}
+                  </mat-icon>
+                </mat-form-field>
+                <br />
+                <br />
+                <mat-checkbox color="primary" class="mt-5">Mantener sesión</mat-checkbox>
+                <br />
+                <button class="pull-right" mat-raised-button color="primary" (click)="login()">
+                  Login
+                </button>
+              </form>
             </div>
           </div>
         </div>

@@ -17,9 +17,10 @@ export class InterceptorService implements HttpInterceptor {
         private notificationService: NotificationService
     ) { }
 
+
+    // Revisar ROLLBAR !!!
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        console.log('Entra en juego el interceptor?');
         // Too can set other headers
         // Get the auth token from the service.
         const authToken = this.auth.getAuthorizationToken();
@@ -29,6 +30,8 @@ export class InterceptorService implements HttpInterceptor {
         const authReq = req.clone({
             headers: req.headers.set('Authorization', authToken)
         });
+
+        // Manejo de errores
         return next.handle(authReq)
             .pipe(
                 retry(1),
@@ -42,7 +45,7 @@ export class InterceptorService implements HttpInterceptor {
                         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
                     }
 
-                    const notification: Notification = new Notification(errorMessage);
+                    const notification: Notification = new Notification('danger', errorMessage);
                     this.notificationService.openSnackBar(notification);
 
                     return throwError(errorMessage);

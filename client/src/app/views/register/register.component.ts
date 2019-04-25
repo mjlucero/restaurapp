@@ -33,13 +33,13 @@ export class RegisterComponent implements OnInit {
   }
   createRegisterForm() {
     this.accountForm = this.builder.group({
-      'name': ['Flavio', [Validators.required]],
-      'lastname': ['Alfaro', [Validators.required]],
-      'password': ['123456', [Validators.required]],
-      'confirm_password': ['123456', [Validators.required]],
-      'email': ['fg.alfaro94@gmail.com', [Validators.required,
+      'name': ['', [Validators.required]],
+      'lastname': ['', [Validators.required]],
+      'password': ['', [Validators.required]],
+      'confirm_password': ['', [Validators.required]],
+      'email': ['', [Validators.required,
       Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
-      'telephone': ['2634618199', [Validators.required, Validators.pattern(/^\d+$/)]]
+      'telephone': ['', [Validators.required, Validators.pattern(/^\d+$/)]]
     }, { validator: this.matchPassword });
 
     this.matcher = new ErrorStateForms();
@@ -70,8 +70,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.api.post('user', user).subscribe(response => {
-      console.log('Esta es la response', response);
-      const notification: Notification = new Notification('Usuario creado correctamente');
+      const notification: Notification = new Notification('success', 'Usuario creado correctamente');
       this.notificationService.openSnackBar(notification);
       this.router.navigate(['/login']);
     });

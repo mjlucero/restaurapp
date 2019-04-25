@@ -4,7 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 @Component({
   // tslint:disable-next-line
   selector: 'body',
-  template: `<router-outlet></router-outlet>`
+  template: `<router-outlet></router-outlet><app-loader></app-loader>`
 })
 export class AppComponent implements OnInit {
   constructor(

@@ -1,3 +1,4 @@
+
 <div class="app-body">
   <main class="main d-flex align-items-center">
     <div class="container">
@@ -5,7 +6,6 @@
         <div class="col-md-5 mx-auto">
           <div class="card mx-4">
             <div class="card-body p-4">
-
               <h3 class="mb-5 mt-5 text-center">Completá tus datos</h3>
               <form [formGroup]="accountForm" novalidate>
                 <!-- ======================= -->
@@ -86,7 +86,7 @@
               </form>
 
               <button (click)="createAccount()" class="pull-right" mat-raised-button color="primary">Crear cuenta</button>
-              <button class="pull-left" mat-raised-button color="link">Login</button>
+              <a class="pull-left" color="primary">Login</a>
 
             </div>
           </div>
