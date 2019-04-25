@@ -6,8 +6,8 @@
           <div class="card mx-4">
             <div class="card-body p-4">
 
-              <h3 class="mb-3">Completá tus datos</h3>
-              <form (ngSubmit)="createAccount()" [formGroup]="accountForm" novalidate>
+              <h3 class="mb-5 mt-5 text-center">Completá tus datos</h3>
+              <form [formGroup]="accountForm" novalidate>
                 <!-- ======================= -->
                 <!-- Nombre -->
                 <!-- ======================= -->
@@ -80,12 +80,13 @@
                     La contraseña es <strong>requerida</strong>
                   </mat-error>
                   <mat-error *ngIf="accountForm.controls['confirm_password'].hasError('confirmPassword')">
-                    La contraseñas no <strong>coinciden</strong>
+                    Las contraseñas no <strong>coinciden</strong>
                   </mat-error>
                 </mat-form-field>
               </form>
 
-              <button class="pull-right" mat-raised-button color="primary">Crear cuenta</button>
+              <button (click)="createAccount()" class="pull-right" mat-raised-button color="primary">Crear cuenta</button>
+              <button class="pull-left" mat-raised-button color="link">Login</button>
 
             </div>
           </div>

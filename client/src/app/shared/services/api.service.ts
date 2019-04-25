@@ -38,8 +38,13 @@ export class ApiService {
         return this.http.delete(url, body);
     }
 
-    private createParams(params: Object): string {
+    private createParams(queryParams: Object): URLSearchParams {
         // Armar los parametros desde un JSON
-        return 'ex=algo&otroparams=pp';
+        const params = new URLSearchParams();
+        Object.keys(queryParams).forEach(key => {
+            params.append(key, queryParams[key]);
+        });
+        return params;
     }
+
 }

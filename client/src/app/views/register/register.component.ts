@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { User, ErrorStateForms } from '../../shared/models';
+import { User, ErrorStateForms, Notification } from '../../shared/models';
+import { ApiService, NotificationService } from './../../shared/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: 'register.component.html'
+  templateUrl: 'register.component.html',
+  styles: [`
+  `]
 })
 export class RegisterComponent implements OnInit {
 
@@ -17,7 +21,10 @@ export class RegisterComponent implements OnInit {
   public samePasswords = false;
 
   constructor(
-    private builder: FormBuilder
+    private builder: FormBuilder,
+    private api: ApiService,
+    private notificationService: NotificationService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -26,14 +33,14 @@ export class RegisterComponent implements OnInit {
   }
   createRegisterForm() {
     this.accountForm = this.builder.group({
-      'name': ['', [Validators.required]],
-      'lastname': ['', [Validators.required]],
-      'password': ['', [Validators.required]],
-      'confirm_password': ['', [Validators.required]],
-      'email': ['', [Validators.required,
+      'name': ['Flavio', [Validators.required]],
+      'lastname': ['Alfaro', [Validators.required]],
+      'password': ['123456', [Validators.required]],
+      'confirm_password': ['123456', [Validators.required]],
+      'email': ['fg.alfaro94@gmail.com', [Validators.required,
       Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
-      'telephone': ['', [Validators.required, Validators.pattern(/^\d+$/)]]
-    }, {validator: this.matchPassword});
+      'telephone': ['2634618199', [Validators.required, Validators.pattern(/^\d+$/)]]
+    }, { validator: this.matchPassword });
 
     this.matcher = new ErrorStateForms();
 
@@ -54,6 +61,20 @@ export class RegisterComponent implements OnInit {
     if (this.accountForm.invalid) {
       return;
     }
+
+    const user: User = new User();
+    for (const item of Object.keys(this.accountForm.value)) {
+      if (item !== 'confirm_password') {
+        user[item] = this.accountForm.value[item];
+      }
+    }
+
+    this.api.post('user', user).subscribe(response => {
+      console.log('Esta es la response', response);
+      const notification: Notification = new Notification('Usuario creado correctamente');
+      this.notificationService.openSnackBar(notification);
+      this.router.navigate(['/login']);
+    });
 
   }
 }
