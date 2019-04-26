@@ -1,13 +1,16 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 
-const bcrypt = require('bcrypt');
-const _ = require('underscore');
+const bcrypt = require("bcrypt");
+const _ = require("underscore");
 
-const User = require('../models/user');
-const userController = require('../controllers/userController');
+const User = require("../models/user");
+const userController = require("../controllers/userController");
+const asyncHandler = require("../middlewares/async-handler");
 
-app.get('/user', async function (req, res) {
+app.get(
+  "/user",
+  asyncHandler(async (req, res, next) => {
     let from = req.query.from || 0;
     from = Number(from);
 
@@ -17,71 +20,71 @@ app.get('/user', async function (req, res) {
     let users = await userController.getUsers(from, limit);
 
     res.json({
-        ok: true,
-        users
+      ok: true,
+      users
     });
+  })
+);
+
+app.get("/user/:id", async function(req, res) {
+  let id = req.params.id;
+
+  let user = await userController.getUser(id);
+
+  res.json({
+    ok: true,
+    user
+  });
 });
 
-app.get('/user/:id', async function (req, res) {
-    let id = req.params.id;
+app.post("/user", async function(req, res) {
+  let body = req.body;
 
-    let user = await userController.getUser(id);
+  let user = new User({
+    name: body.name,
+    lastname: body.lastname,
+    telephone: body.telephone,
+    email: body.email,
+    password: bcrypt.hashSync(body.password, 10)
+  });
 
-    res.json({
-        ok: true,
-        user
-    });
+  let userDB = await userController.createUser(user);
+
+  res.json({
+    ok: true,
+    user: userDB
+  });
 });
 
-app.post('/user', async function (req, res) {
-    let body = req.body;
+app.put("/user/:id", async function(req, res) {
+  let id = req.params.id;
+  let body = _.pick(req.body, [
+    "name",
+    "lastname",
+    "telephone",
+    "email",
+    "img",
+    "role",
+    "active"
+  ]);
 
-    let user = new User({
-        name: body.name,
-        lastname: body.lastname,
-        telephone: body.telephone,
-        email: body.email,
-        password: bcrypt.hashSync(body.password, 10)
-    });
+  let userUpdated = await userController.updateUser(id, body);
 
-    let userDB = await userController.createUser(user);
-
-    res.json({
-        ok: true,
-        user: userDB
-    });
+  res.json({
+    ok: true,
+    user: userUpdated
+  });
 });
 
-app.put('/user/:id', async function (req, res) {
-    let id = req.params.id;
-    let body = _.pick(req.body, ['name',
-        'lastname',
-        'telephone',
-        'email',
-        'img',
-        'role',
-        'active']);
+app.delete("/usuario/:id", async function(req, res) {
+  let id = req.params.id;
 
-    let userUpdated = await userController.updateUser(id, body);
+  let userDeleted = await userController.deleteUser(id);
 
-    res.json({
-        ok: true,
-        user: userUpdated
-    });
-
+  res.json({
+    ok: true,
+    user: userDeleted
+  });
 });
-
-app.delete('/usuario/:id', async function (req, res) {
-    let id = req.params.id;
-
-    let userDeleted = await userController.deleteUser(id);
-
-    res.json({
-        ok: true,
-        user: userDeleted
-    });
-
-});
-
 
 module.exports = app;
