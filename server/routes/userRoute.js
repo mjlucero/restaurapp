@@ -10,7 +10,8 @@ const asyncHandler = require("../middlewares/async-handler");
 
 app.get(
   "/user",
-  asyncHandler(async (req, res, next) => {
+  //asyncHandler(async (req, res, next) => {
+  async (req, res, next) => {
     let from = req.query.from || 0;
     from = Number(from);
 
@@ -23,7 +24,7 @@ app.get(
       ok: true,
       users
     });
-  })
+  }
 );
 
 app.get("/user/:id", async function(req, res) {

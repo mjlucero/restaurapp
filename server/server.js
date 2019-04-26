@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(errorHandlers);
+//app.use(errorHandlers);
 
 app.use(require("./routes/userRoute"));
 app.use(require("./routes/typeRoute"));
