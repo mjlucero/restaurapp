@@ -6,10 +6,9 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { LoaderComponent } from './components/loader.component';
 
 @NgModule({
-    declarations: [LoaderComponent],
+    declarations: [],
     imports: [
         MaterialModule,
         ReactiveFormsModule,
@@ -17,8 +16,6 @@ import { LoaderComponent } from './components/loader.component';
         HttpClientModule
     ],
     exports: [
-        // Components
-        LoaderComponent,
         // Modules
         MaterialModule,
         ReactiveFormsModule,

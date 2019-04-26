@@ -6,7 +6,7 @@
         <div class="col-md-5 mx-auto">
           <div class="card mx-4">
             <div class="card-body p-4">
-              <h3 class="mb-5 mt-5 text-center">Completá tus datos</h3>
+              <h3 class="mb-2 text-center">Completá tus datos</h3>
               <form [formGroup]="accountForm" novalidate>
                 <!-- ======================= -->
                 <!-- Nombre -->
@@ -86,7 +86,7 @@
               </form>
 
               <button (click)="createAccount()" class="pull-right" mat-raised-button color="primary">Crear cuenta</button>
-              <a class="pull-left" color="primary">Login</a>
+              <a class="pull-left c-pointer" routerLink="/login">Login</a>
 
             </div>
           </div>

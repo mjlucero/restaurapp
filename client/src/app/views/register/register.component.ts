@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { User, ErrorStateForms, Notification } from '../../shared/models';
-import { ApiService, NotificationService } from './../../shared/services';
+import { ApiService, NotificationService, LoaderService } from './../../shared/services';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,6 +24,7 @@ export class RegisterComponent implements OnInit {
     private builder: FormBuilder,
     private api: ApiService,
     private notificationService: NotificationService,
+    private loaderService: LoaderService,
     private router: Router
   ) { }
 
@@ -33,13 +34,13 @@ export class RegisterComponent implements OnInit {
   }
   createRegisterForm() {
     this.accountForm = this.builder.group({
-      'name': ['', [Validators.required]],
-      'lastname': ['', [Validators.required]],
-      'password': ['', [Validators.required]],
-      'confirm_password': ['', [Validators.required]],
-      'email': ['', [Validators.required,
+      'name': ['Flavio', [Validators.required]],
+      'lastname': ['Alfaro', [Validators.required]],
+      'password': ['123123', [Validators.required]],
+      'confirm_password': ['123123', [Validators.required]],
+      'email': ['fg.alfaro94@gmail.com', [Validators.required,
       Validators.pattern('^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$')]],
-      'telephone': ['', [Validators.required, Validators.pattern(/^\d+$/)]]
+      'telephone': ['24242424', [Validators.required, Validators.pattern(/^\d+$/)]]
     }, { validator: this.matchPassword });
 
     this.matcher = new ErrorStateForms();
@@ -58,6 +59,7 @@ export class RegisterComponent implements OnInit {
   }
 
   createAccount() {
+    // this.loaderService.addLoaderComponent();
     if (this.accountForm.invalid) {
       return;
     }
@@ -70,6 +72,8 @@ export class RegisterComponent implements OnInit {
     }
 
     this.api.post('user', user).subscribe(response => {
+      this.loaderService.destroyLoader();
+      console.log('response', response);
       const notification: Notification = new Notification('success', 'Usuario creado correctamente');
       this.notificationService.openSnackBar(notification);
       this.router.navigate(['/login']);

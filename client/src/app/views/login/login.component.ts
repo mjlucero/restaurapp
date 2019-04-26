@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
 
     this.router.navigate(['']);
     // this.apiService.post('login', login).subscribe(resp => {
+    //   console.log('response login', resp);
     //   this.router.navigate(['']);
     // });
   }

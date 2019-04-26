@@ -1,6 +1,7 @@
 import { HttpEvent, HttpInterceptor, HttpRequest, HttpHandler, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { NotificationService } from './notification.service';
+import { LoaderService } from './loader.service';
 import { Injectable } from '@angular/core';
 
 import { Notification } from '../models';
@@ -14,12 +15,16 @@ export class InterceptorService implements HttpInterceptor {
 
     constructor(
         private auth: AuthService,
-        private notificationService: NotificationService
+        private notificationService: NotificationService,
+        private loaderService: LoaderService
     ) { }
 
 
     // Revisar ROLLBAR !!!
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+        console.log('Se lanza el interceptor');
+        this.loaderService.addLoaderComponent();
 
         // Too can set other headers
         // Get the auth token from the service.
@@ -36,6 +41,7 @@ export class InterceptorService implements HttpInterceptor {
             .pipe(
                 retry(1),
                 catchError((error: HttpErrorResponse) => {
+                    this.loaderService.destroyLoader();
                     let errorMessage = '';
                     if (error.error instanceof ErrorEvent) {
                         // client-side error

@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewContainerRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+
+import { LoaderService, RoutingStateService } from './shared/services';
 
 @Component({
   // tslint:disable-next-line
   selector: 'body',
-  template: `<router-outlet></router-outlet><app-loader></app-loader>`
+  template: `<router-outlet></router-outlet>`
 })
 export class AppComponent implements OnInit {
   constructor(
-    private router: Router
-  ) { }
+    private router: Router,
+    private routingStateService: RoutingStateService,
+    @Inject(LoaderService) loaderService,
+    @Inject(ViewContainerRef) viewContainerRef
+  ) {
+    loaderService.setRootViewContainerRef(viewContainerRef);
+    routingStateService.loadRouting();
+  }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {
