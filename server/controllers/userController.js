@@ -49,6 +49,7 @@ const deleteUser = id => User.findOneAndUpdate(id, { active: false }, { new: tru
 module.exports = {
     loginUser,
     createUser,
+    getUser,
     getUsers,
     updateUser,
     deleteUser
