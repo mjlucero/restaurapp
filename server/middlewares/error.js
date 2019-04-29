@@ -9,7 +9,7 @@ const notFoundHandler = (req, res, next) => next(new ResourceNotFound());
 const errorHandler = (err, req, res, next) => {
   const message = err[code] ? err.message : "Internal server error";
 
-  res.status(err[code] || 500).json(err);
+  res.status(err[code] || 500).json({ message });
 };
 
 module.exports = [notFoundHandler, errorHandler];

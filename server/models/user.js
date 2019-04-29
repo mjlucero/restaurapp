@@ -16,7 +16,7 @@ let userSchema = new Schema({
     password: { type: String, required: [true, 'Password is required'] },
     img: { type: String, required: false },
     role: { type: String, default: 'CLIENT_ROLE', enum: validRols },
-    addres: {
+    address: {
         street: String,
         number: Number,
         location: String

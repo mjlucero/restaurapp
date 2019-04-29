@@ -7,27 +7,24 @@ const _ = require("underscore");
 const User = require("../models/user");
 const userController = require("../controllers/userController");
 const asyncHandler = require("../middlewares/async-handler");
+const { verifyToken } = require('../middlewares/auth');
 
-app.get(
-  "/user",
-  //asyncHandler(async (req, res, next) => {
-  async (req, res, next) => {
-    let from = req.query.from || 0;
-    from = Number(from);
+app.get("/user", verifyToken, async (req, res, next) => {
+  let from = req.query.from || 0;
+  from = Number(from);
 
-    let limit = req.query.limit || 5;
-    limit = Number(limit);
+  let limit = req.query.limit || 5;
+  limit = Number(limit);
 
-    let users = await userController.getUsers(from, limit);
+  let users = await userController.getUsers(from, limit);
 
-    res.json({
-      ok: true,
-      users
-    });
-  }
-);
+  res.json({
+    ok: true,
+    users
+  });
+});
 
-app.get("/user/:id", async function(req, res) {
+app.get("/user/:id", async function (req, res) {
   let id = req.params.id;
 
   let user = await userController.getUser(id);
@@ -38,7 +35,7 @@ app.get("/user/:id", async function(req, res) {
   });
 });
 
-app.post("/user", async function(req, res) {
+app.post("/user", asyncHandler(async function (req, res) {
   let body = req.body;
 
   let user = new User({
@@ -55,9 +52,9 @@ app.post("/user", async function(req, res) {
     ok: true,
     user: userDB
   });
-});
+}));
 
-app.put("/user/:id", async function(req, res) {
+app.put("/user/:id", async function (req, res) {
   let id = req.params.id;
   let body = _.pick(req.body, [
     "name",
@@ -77,7 +74,7 @@ app.put("/user/:id", async function(req, res) {
   });
 });
 
-app.delete("/usuario/:id", async function(req, res) {
+app.delete("/usuario/:id", async function (req, res) {
   let id = req.params.id;
 
   let userDeleted = await userController.deleteUser(id);

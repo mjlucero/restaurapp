@@ -12,11 +12,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//app.use(errorHandlers);
+app.use(require("./routes/index"));
 
-app.use(require("./routes/userRoute"));
-app.use(require("./routes/typeRoute"));
-app.use(require("./routes/pedido"));
+app.use(errorHandlers);
 
 mongoose.connect(
   process.env.URL_DB,
@@ -25,7 +23,7 @@ mongoose.connect(
     if (err) throw err;
 
     app.listen(process.env.PORT);
-    console.log("Base de datos online");
+    console.log("Database onlie");
     console.log("App corriendo en el puerto " + process.env.PORT);
   }
 );

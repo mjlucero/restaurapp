@@ -1,16 +1,55 @@
+const bcrypt = require("bcrypt");
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
+const { ResourceNotFound } = require("../errors");
+
+//Login user
+const loginUser = async (email, password) => {
+    try {
+        let userDB = await User.findOne({ email });
+
+        if (!userDB) {
+            throw new ResourceNotFound('User not found');
+        }
+
+        if (!bcrypt.compareSync(password, userDB.password)) {
+            throw new ResourceNotFound('User not found');
+        }
+
+        let token = jwt.sign({ user: userDB }, process.env.SEED, { expiresIn: process.env.EXPIRATION_TIME });
+
+        let response = {
+            userDB,
+            token
+        };
+
+        return response;
+
+    } catch (error) {
+        throw error;
+    }
+}
+
 //Create user
-exports.createUser = (user) => user.save();
+const createUser = (user) => user.save();
 
 //Get user
-exports.getUser = id => User.findById(id);
+const getUser = id => User.findById(id);
 
 //Get all users with pagination on querystring
-exports.getUsers = (from, limit) => User.find({}).skip(from).limit(limit);
+const getUsers = (from, limit) => User.find({}).skip(from).limit(limit);
 
 //Update user
-exports.updateUser = (id, body) => User.findOneAndUpdate(id, body, { new: true, runValidators: true });
+const updateUser = (id, body) => User.findOneAndUpdate(id, body, { new: true, runValidators: true });
 
 //Logic delete user
-exports.deleteUser = id => User.findOneAndUpdate(id, { active: false }, { new: true });
+const deleteUser = id => User.findOneAndUpdate(id, { active: false }, { new: true });
+
+module.exports = {
+    loginUser,
+    createUser,
+    getUsers,
+    updateUser,
+    deleteUser
+}

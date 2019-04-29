@@ -15,3 +15,9 @@ let urlDB = 'mongodb+srv://resadmin:j2Oeo0NdOZeIdgAl@cluster0-zhby2.mongodb.net/
 
 process.env.URL_DB = urlDB;
 
+//Token expiration time
+process.env.EXPIRATION_TIME = 60 * 60 * 24 * 30;
+
+//Token seed
+process.env.SEED = process.env.SEED || 'this-is-dev-seed';
+
