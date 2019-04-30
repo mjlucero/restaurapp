@@ -6,10 +6,8 @@ const asyncHandler = require("../middlewares/async-handler");
 
 app.post("/login", asyncHandler(async (req, res, next) => {
 
-    let email = req.body.email;
-    let password = req.body.password;
+    let { email, password } = req.body;
 
-    //console.log(await userController.loginUser(email, password));
     let loginData = await userController.loginUser(email, password);
 
     let { userDB, token } = loginData;
