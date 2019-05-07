@@ -72,8 +72,6 @@ export class RegisterComponent implements OnInit {
     }
 
     this.api.post('user', user).subscribe(response => {
-      this.loaderService.destroyLoader();
-      console.log('response', response);
       const notification: Notification = new Notification('success', 'Usuario creado correctamente');
       this.notificationService.openSnackBar(notification);
       this.router.navigate(['/login']);

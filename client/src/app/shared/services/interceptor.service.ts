@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { Notification } from '../models';
 
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, catchError, finalize } from 'rxjs/operators';
 
 @Injectable()
 
@@ -23,7 +23,7 @@ export class InterceptorService implements HttpInterceptor {
     // Revisar ROLLBAR !!!
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        console.log('Se lanza el interceptor');
+        // Show loader
         this.loaderService.addLoaderComponent();
 
         // Too can set other headers
@@ -36,12 +36,11 @@ export class InterceptorService implements HttpInterceptor {
             headers: req.headers.set('Authorization', authToken)
         });
 
-        // Manejo de errores
+        // Handle errors
         return next.handle(authReq)
             .pipe(
-                retry(1),
+                // retry(1),
                 catchError((error: HttpErrorResponse) => {
-                    this.loaderService.destroyLoader();
                     let errorMessage = '';
                     if (error.error instanceof ErrorEvent) {
                         // client-side error
@@ -51,10 +50,15 @@ export class InterceptorService implements HttpInterceptor {
                         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
                     }
 
+                    // Show notification error
                     const notification: Notification = new Notification('danger', errorMessage);
                     this.notificationService.openSnackBar(notification);
 
                     return throwError(errorMessage);
+                }),
+                finalize( () => {
+                    // Delete loader
+                    this.loaderService.destroyLoader();
                 })
             );
     }
