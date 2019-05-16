@@ -3,24 +3,35 @@
 // MODULES
 // =====================================
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+// =====================================
+// COMPONENTS
+// =====================================
+import { FormComponent } from './components';
 
 @NgModule({
-    declarations: [],
+    declarations: [
+        FormComponent
+    ],
     imports: [
         MaterialModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        CommonModule
     ],
     exports: [
         // Modules
         MaterialModule,
         ReactiveFormsModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        CommonModule,
+        // Components
+        FormComponent
     ]
 })
 

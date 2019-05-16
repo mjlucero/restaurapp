@@ -1,6 +1,6 @@
 
 import { ComponentFactoryResolver, Injectable, Inject, ReflectiveInjector, ViewContainerRef } from '@angular/core';
-import { LoaderComponent } from '../components/loader.component';
+import { LoaderComponent } from '../components/loader/loader.component';
 @Injectable({
     providedIn: 'root'
 })
