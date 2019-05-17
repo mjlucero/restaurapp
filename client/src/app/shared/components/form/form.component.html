@@ -1,10 +1,10 @@
 <div class="dinamyc-form">
-  <form [formGroup]="formGroup" novalidate>
+  <form [formGroup]="dynamicForm" novalidate>
     <ng-container *ngFor="let field of form.fields">
-        <mat-form-field appearance="outline" [class]="field.sizeColumn">
+        <mat-form-field appearance="outline" class="{{field.classes}} {{field.sizeColumn}}">
           <mat-label>{{field.label}}</mat-label>
-          <input matInput [placeholder]="field.placeholder" formControlName="name" [errorStateMatcher]="matcher" />
-          <template [ngTemplateOutlet]="errors;context:{field: field}"></template>
+          <input matInput [placeholder]="field.placeholder" [formControlName]="field.name" [errorStateMatcher]="matcher" />
+          <ng-container *ngTemplateOutlet="errors;context:{field: field}"></ng-container>
         </mat-form-field>
     </ng-container>
   </form>
@@ -12,7 +12,7 @@
 
 <ng-template #errors let-field="field">
     <ng-container *ngFor="let errorField of field.fieldErrors">
-        <mat-error *ngIf="formGroup.controls['name'].hasError(errorField.hasError)">
+        <mat-error *ngIf="dynamicForm.controls[field.name].hasError(errorField.hasError)">
             {{errorField.text}} <strong>{{errorField.strongText}}</strong>
         </mat-error>
     </ng-container>
