@@ -1,9 +1,9 @@
-module.exports.processMongooseError = function (err) {
-    if (err.name == "MongoError") {
-        // mongo db error
+module.exports.getSumOfArticlesPucharasePrice = (articles) => {
+    let sum;
+    
+    articles.forEach(article => {
+        sum += article.pucharasePrice || 0 * quantity || 0;
+    });
 
-    } else if (err.name == "ValidationError") {
-        // mongoose error
-
-    }
+    return sum;
 }

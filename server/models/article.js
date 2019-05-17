@@ -10,7 +10,8 @@ let articleSchema = new Schema({
     stock: { type: Number },
     measure: { type: String },
     isInput: { type: Boolean },
-    type: { type: Schema.ObjectId, ref: 'Type' }
+    type: { type: Schema.ObjectId, ref: 'Type' },
+    active: { type: Boolean, default: true }
 });
 
 articleSchema.pre('save', function (next) {
