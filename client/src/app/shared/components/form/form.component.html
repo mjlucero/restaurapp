@@ -1,0 +1,19 @@
+<div class="dinamyc-form">
+  <form [formGroup]="formGroup" novalidate>
+    <ng-container *ngFor="let field of form.fields">
+        <mat-form-field appearance="outline" [class]="field.sizeColumn">
+          <mat-label>{{field.label}}</mat-label>
+          <input matInput [placeholder]="field.placeholder" formControlName="name" [errorStateMatcher]="matcher" />
+          <template [ngTemplateOutlet]="errors;context:{field: field}"></template>
+        </mat-form-field>
+    </ng-container>
+  </form>
+</div>
+
+<ng-template #errors let-field="field">
+    <ng-container *ngFor="let errorField of field.fieldErrors">
+        <mat-error *ngIf="formGroup.controls['name'].hasError(errorField.hasError)">
+            {{errorField.text}} <strong>{{errorField.strongText}}</strong>
+        </mat-error>
+    </ng-container>
+</ng-template>
