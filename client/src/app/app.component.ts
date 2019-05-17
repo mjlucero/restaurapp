@@ -15,7 +15,9 @@ export class AppComponent implements OnInit {
     @Inject(LoaderService) loaderService,
     @Inject(ViewContainerRef) viewContainerRef
   ) {
+    // El loader se creará dentro de este componente
     loaderService.setRootViewContainerRef(viewContainerRef);
+    // Inicio del tracker de rutas
     routingStateService.loadRouting();
   }
 

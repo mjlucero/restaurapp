@@ -260,7 +260,7 @@ export const navItems: NavData[] = [
     name: 'Download CoreUI',
     url: 'http://coreui.io/angular/',
     icon: 'icon-cloud-download',
-    class: 'mt-auto',
+    class: 'mt-auto hidden',
     variant: 'success',
     attributes: { target: '_blank', rel: 'noopener' }
   },
@@ -268,6 +268,7 @@ export const navItems: NavData[] = [
     name: 'Try CoreUI PRO',
     url: 'http://coreui.io/pro/angular/',
     icon: 'icon-layers',
+    class: 'hidden',
     variant: 'danger',
     attributes: { target: '_blank', rel: 'noopener' }
   }
