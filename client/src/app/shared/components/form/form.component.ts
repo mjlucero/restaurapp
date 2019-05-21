@@ -8,20 +8,25 @@ import { ErrorStateForms } from './../../models/errorStateForms.model';
     templateUrl: 'form.component.html',
 })
 
-export class FormComponent {
+export class FormComponent implements OnChanges {
 
     public matcher: ErrorStateForms;
     public dynamicForm: FormGroup;
-    @Input() public form: Form;
+    @Input() form: Form = null;
 
     constructor(
         private builder: FormBuilder
-    ) {
-        this.createForm();
+    ) { }
+
+    ngOnChanges() {
+        if ( this.form ) {
+            this.createForm();
+        }
     }
 
     createForm() {
         const listInputsForm = {};
+        console.log('object', this.form);
         for (const field of this.form.fields) {
             const formControl: FormControl = new FormControl(field.defaultValue);
             formControl.setValidators(field.validators);

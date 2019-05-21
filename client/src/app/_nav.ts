@@ -41,11 +41,11 @@ export const navItems: NavData[] = [
   },
   {
     title: true,
-    name: 'Theme'
+    name: 'Articulos'
   },
   {
-    name: 'Colors',
-    url: '/theme/colors',
+    name: 'Stock',
+    url: '/article/stock',
     icon: 'icon-drop'
   },
   {

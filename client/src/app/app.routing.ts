@@ -75,8 +75,8 @@ export const routes: Routes = [
         loadChildren: './views/notifications/notifications.module#NotificationsModule'
       },
       {
-        path: 'theme',
-        loadChildren: './views/theme/theme.module#ThemeModule'
+        path: 'article',
+        loadChildren: './views/articles/articles.module#ArticlesModule'
       },
       {
         path: 'widgets',

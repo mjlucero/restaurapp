@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 
 export class AuthService {
     private urlBase: string;
+    private token;
+    private currentUser;
     constructor(
         private http: HttpClient
     ) {
@@ -15,6 +17,14 @@ export class AuthService {
     }
 
     public getAuthorizationToken() {
-        return 'token';
+        return this.token || JSON.parse(localStorage.getItem('token'));
+    }
+    public setToken(token) {
+        localStorage.setItem('user_token', JSON.stringify(token));
+        this.token = token;
+    }
+    public setCurrentUser(userInfo) {
+        localStorage.setItem('user_info', JSON.stringify(userInfo));
+        this.currentUser = userInfo;
     }
 }
