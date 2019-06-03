@@ -1,4 +1,4 @@
-import { ValidatorFn } from '@angular/forms';
+import { ValidatorFn, Validators } from '@angular/forms';
 
 export class Form {
     constructor(
@@ -14,25 +14,38 @@ export class Field {
     public placeholder: string;
     public label: string;
     public classes: string;
-    public sizeColumn: 'w-100' | 'w-50' | 'w-25';
+    public sizeColumn: 'w-100' | 'w-50' | 'w-33';
     public fieldErrors: Array<FieldError>;
-    public validators: ValidatorFn[];
+    private validators: ValidatorFn[] = [];
     public onClick: Function;
     public onFocus: Function;
-
 
     constructor(
         name: string,
         defaultValue: any,
         type: 'text' | 'password' | 'select',
         placeholder: string,
-        label: string
+        label: string,
+        required: boolean
     ) {
         this.name = name;
+        this.sizeColumn = 'w-100';
         this.defaultValue = defaultValue;
         this.type = type;
         this.placeholder = placeholder;
         this.label = label;
+        if ( required ) {
+            this.validators.push(Validators.required);
+        }
+    }
+
+    addPatternValidator(pattern: RegExp) {
+        const validator = Validators.pattern(pattern);
+        this.validators.push(validator);
+    }
+
+    getValidators() {
+        return this.validators;
     }
 }
 

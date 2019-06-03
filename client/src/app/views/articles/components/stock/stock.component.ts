@@ -1,26 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Form, Field, FieldError, Article } from '../../../../shared/models';
+import { Article, ErrorStateForms } from '../../../../shared/models';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 @Component({
     selector: 'app-stock',
     templateUrl: 'stock.component.html'
 })
 
 export class StockComponent implements OnInit {
-    public articleForm: Form = null;
+    public stockForm: FormGroup;
+    public matcher: ErrorStateForms;
     constructor(
+        private builder: FormBuilder,
         private router: Router
-    ) { }
-    ngOnInit() {
-
+    ) {
+        this.createStockForm();
     }
-    addArticle() {
-        const denomination: Field = new Field('denomination', '', 'text', 'denominacion', 'denominación');
-        const purchasePrice: Field = new Field('pucharasePrice', '', 'text', 'Precio de compra', 'Precio de compra');
-        const salePrice: Field = new Field('salePrice', '', 'text', 'Precio de venta', 'Precio de venta');
-        const stock: Field = new Field('stock', 1, 'text', 'Cantidad', 'Cantidad');
-        const measure: Field = new Field('measure', '', 'text', 'Medida', 'Medida');
-        this.articleForm = new Form([denomination, purchasePrice, salePrice, stock, measure]);
-        console.log('Puto formulario', this.articleForm);
+    ngOnInit() {
+    }
+    createStockForm() {
+        this.stockForm = this.builder.group({
+            'denomination': ['', [Validators.required]],
+            'salePrice': ['', [Validators.required, Validators.pattern(/\d+/)]],
+            'purchasePrice': ['', [Validators.required, Validators.pattern(/\d+/)]],
+            'stock': ['1', [Validators.required, Validators.pattern(/\d+/)]],
+            'measure': ['', [Validators.required, Validators.pattern(/\d+/)]],
+        });
+
+        this.matcher = new ErrorStateForms();
     }
 }

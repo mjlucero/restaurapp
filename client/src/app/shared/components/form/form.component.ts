@@ -29,7 +29,8 @@ export class FormComponent implements OnChanges {
         console.log('object', this.form);
         for (const field of this.form.fields) {
             const formControl: FormControl = new FormControl(field.defaultValue);
-            formControl.setValidators(field.validators);
+            const validators = field.getValidators();
+            formControl.setValidators(validators);
             listInputsForm[field.name] = formControl;
         }
         this.dynamicForm = this.builder.group(listInputsForm);

@@ -1,8 +1,8 @@
 <div *ngIf="form">
   <div class="dinamyc-form">
-    <form [formGroup]="dynamicForm" novalidate>
+    <form [formGroup]="dynamicForm" novalidate class="w-100">
       <ng-container *ngFor="let field of form.fields">
-          <mat-form-field appearance="outline" class="{{field.classes}} {{field.sizeColumn}}">
+          <mat-form-field appearance="outline" class="d-inline-block {{field.classes}} {{field.sizeColumn}}">
             <mat-label>{{field.label}}</mat-label>
             <input matInput [placeholder]="field.placeholder" [formControlName]="field.name" [errorStateMatcher]="matcher" />
             <ng-container *ngTemplateOutlet="errors;context:{field: field}"></ng-container>
