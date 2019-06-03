@@ -34,7 +34,7 @@
       <mat-label>Denominación</mat-label>
       <input matInput placeholder="Denominación" formControlName="denomination" [errorStateMatcher]="matcher" />
       <mat-error *ngIf="stockForm.get('denomination').hasError('required')">
-        La denominación es<strong>requerida</strong>
+        La denominación es <strong>requerida</strong>
       </mat-error>
     </mat-form-field>
     <!-- ====================== -->
@@ -44,10 +44,10 @@
       <mat-label>Precio de venta</mat-label>
       <input matInput placeholder="Precio de venta" formControlName="salePrice" [errorStateMatcher]="matcher" />
       <mat-error *ngIf="stockForm.get('salePrice').hasError('required')">
-        El precio de venta es<strong>requerido</strong>
+        El precio de venta es <strong>requerido</strong>
       </mat-error>
       <mat-error *ngIf="stockForm.get('salePrice').hasError('pattern')">
-        Solo ingresá<strong>números</strong>
+        Solo ingresá <strong>números</strong>
       </mat-error>
     </mat-form-field>
     <!-- ====================== -->
@@ -57,10 +57,10 @@
       <mat-label>Precio de compra</mat-label>
       <input matInput placeholder="Precio de compra" formControlName="purchasePrice" [errorStateMatcher]="matcher" />
       <mat-error *ngIf="stockForm.get('purchasePrice').hasError('required')">
-        El precio de compra es<strong>requerido</strong>
+        El precio de compra es <strong>requerido</strong>
       </mat-error>
       <mat-error *ngIf="stockForm.get('purchasePrice').hasError('pattern')">
-        Solo ingresá<strong>números</strong>
+        Solo ingresá <strong>números</strong>
       </mat-error>
     </mat-form-field>
     <!-- ====================== -->
@@ -70,23 +70,23 @@
       <mat-label>Cantidad</mat-label>
       <input matInput placeholder="Cantidad" formControlName="stock" [errorStateMatcher]="matcher" />
       <mat-error *ngIf="stockForm.get('stock').hasError('required')">
-        La cantidad es<strong>requerida</strong>
+        La cantidad es <strong>requerida</strong>
       </mat-error>
       <mat-error *ngIf="stockForm.get('stock').hasError('pattern')">
-        Solo ingresá<strong>números</strong>
+        Solo ingresá <strong>números</strong>
       </mat-error>
     </mat-form-field>
     <!-- ====================== -->
     <!-- TAMAÑO -->
     <!-- ====================== -->
     <mat-form-field appearance="outline" class="d-inline-block w-50 float-right">
-      <mat-label>Tamaño</mat-label>
+      <mat-label>Tamaño (cm)</mat-label>
       <input matInput placeholder="Tamaño" formControlName="measure" [errorStateMatcher]="matcher" />
       <mat-error *ngIf="stockForm.get('measure').hasError('required')">
-        El tamaño es<strong>requerida</strong>
+        El tamaño es <strong>requerida</strong>
       </mat-error>
       <mat-error *ngIf="stockForm.get('measure').hasError('pattern')">
-        Solo ingresá<strong>números</strong>
+        Solo ingresá <strong>números</strong>
       </mat-error>
     </mat-form-field>
     <button mat-raised-button color="primary">Crear articulo</button>
