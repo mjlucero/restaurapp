@@ -29,4 +29,14 @@ export class StockComponent implements OnInit {
 
         this.matcher = new ErrorStateForms();
     }
+
+    createArticle() {
+        if ( this.stockForm.invalid ) {
+            for (const item of Object.keys(this.stockForm.value)) {
+                this.stockForm.get(item).markAsDirty();
+                this.stockForm.get(item).markAsTouched();
+            }
+            return;
+        }
+    }
 }
