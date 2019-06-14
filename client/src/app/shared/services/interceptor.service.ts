@@ -32,12 +32,12 @@ export class InterceptorService implements HttpInterceptor {
 
         // Clone the request and replace the original headers with
         // cloned headers, updated with the authorization.
-        const authReq = req.clone({
-            headers: req.headers.set('Authorization', authToken)
-        });
+        // const authReq = req.clone({
+        //     headers: req.headers.set('Authorization', authToken)
+        // });
 
         // Handle errors
-        return next.handle(authReq)
+        return next.handle(req)
             .pipe(
                 // retry(1),
                 catchError((error: HttpErrorResponse) => {

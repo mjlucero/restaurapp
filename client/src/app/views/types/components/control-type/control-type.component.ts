@@ -52,14 +52,12 @@ export class ControlTypeComponent implements OnInit{
             return;
         }
 
-        console.log('A ver lo que va a mandar', this.typeForm.value);
-
         this.apiService.post('type', this.typeForm.value).subscribe(
-            val => {
+            (val) => {
                 console.log('Todo feel and cool');
                 this.router.navigate(['/items/type']);
             },
-            err => console.log('error', err)
+            (err) => console.log('error', err)
         );
     }
 }

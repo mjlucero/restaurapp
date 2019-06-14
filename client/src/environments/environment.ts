@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  urlBase: 'https://restaur-app.herokuapp.com/'
+  urlBase: 'http://localhost:5000/'
 };

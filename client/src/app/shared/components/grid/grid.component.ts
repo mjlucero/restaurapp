@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, OnChanges, Input, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-grid',
     templateUrl: 'grid.component.html'
 })
 
-export class GridComponent implements OnInit {
-    rows = [
-        { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-        { name: 'Dany', gender: 'Male', company: 'KFC' },
-        { name: 'Molly', gender: 'Female', company: 'Burger King' },
-    ];
-    columns = [
-        { prop: 'name' },
-        { name: 'Gender' },
-        { name: 'Company' }
-    ];
+export class GridComponent implements OnInit, OnChanges {
+    @Input() columns;
+    @Input() rows;
+    @Output() rowSelected = new EventEmitter();
+    selected: any[] = [];
+
     constructor() { }
 
     ngOnInit() { }
+    ngOnChanges() {
+    }
+
+    onSelect(evt) {
+        this.rowSelected.emit(this.selected[0]);
+    }
 }

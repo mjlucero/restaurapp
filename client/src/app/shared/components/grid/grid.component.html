@@ -1,8 +1,14 @@
-<ngx-datatable
-    class="ngx-grid material fixed-row"
-    [columnMode]="'force'"
-    [headerHeight]="'auto'"
-    [rowHeight]="'auto'"
-    [rows]="rows"
-    [columns]="columns">
-</ngx-datatable>
+<div *ngIf="rows">
+    <ngx-datatable
+        class="ngx-grid material fixed-row"
+        [columnMode]="'force'"
+        [headerHeight]="'auto'"
+        [rowHeight]="'auto'"
+        [rows]="rows"
+        [columns]="columns"
+        [selected]="selected"
+        [selectionType]="'single'"
+        (select)="onSelect($event)"
+    >
+    </ngx-datatable>
+</div>
