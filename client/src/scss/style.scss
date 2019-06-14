@@ -6,6 +6,11 @@
 // Material
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
+// NGX Grid
+@import '~@swimlane/ngx-datatable/release/index.css';
+@import '~@swimlane/ngx-datatable/release/themes/material.css';
+@import '~@swimlane/ngx-datatable/release/assets/icons.css';
+
 // If you want to add something do it here
 @import "custom";
 @import "snackBar.scss";
@@ -13,3 +18,4 @@
 
 // Carga de los estilos de las clases
 @import "views/nav.scss";
+@import 'views/grid.scss';

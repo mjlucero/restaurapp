@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-6">
+    <mat-card class="">
+      <mat-card-header>
+        <mat-card-title>{{title}}</mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="typeForm" novalidate>
+        <!-- ====================== -->
+        <!-- DENOMINACION -->
+        <!-- ====================== -->
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Denominación</mat-label>
+          <input
+            matInput
+            placeholder="Denominación"
+            formControlName="denomination"
+            [errorStateMatcher]="matcher"
+          />
+          <mat-error *ngIf="typeForm.get('denomination').hasError('required')">
+            La denominación es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- ====================== -->
+        <!-- ACTIVO -->
+        <!-- ====================== -->
+        <div class="mb-2">
+          <mat-checkbox formControlName="active" color="primary" class="mt-5">Activo</mat-checkbox>
+        </div>
+        <button (click)="createType()" mat-raised-button color="primary">
+          Crear rubro
+        </button>
+        <button class="float-right" [routerLink]="['/items/type']" mat-raised-button color="secondary">
+          Atrás
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

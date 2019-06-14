@@ -1,32 +1,32 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { StockComponent } from './components/stock/stock.component';
-import { ControlArticleComponent } from './components/control-article/control-article.component';
+import { TypeComponent } from './components/type/type.component';
+import { ControlTypeComponent } from './components/control-type/control-type.component';
 
 const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Article'
+      title: 'Rubro'
     },
     children: [
       {
         path: '',
-        redirectTo: 'stock'
+        redirectTo: 'type'
       },
       {
-        path: 'stock',
-        component: StockComponent,
+        path: 'type',
+        component: TypeComponent,
         data: {
           title: 'Stock'
         }
       },
       {
-        path: 'control-article',
-        component: ControlArticleComponent,
+        path: 'control-type',
+        component: ControlTypeComponent,
         data: {
-          title: 'Articulo'
+          title: 'Rubro'
         }
       }
     ]
@@ -37,4 +37,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ArticlesRoutingModule {}
+export class TypesRoutingModule {}

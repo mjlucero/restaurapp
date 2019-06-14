@@ -5,10 +5,12 @@ import { SharedModule } from '../../shared/shared.module';
 // COMPONENTS
 // ========================================
 import { StockComponent } from './components/stock/stock.component';
+import { ControlArticleComponent } from './components/control-article/control-article.component';
 
 @NgModule({
     declarations: [
-        StockComponent
+        StockComponent,
+        ControlArticleComponent
     ],
     imports: [
         ArticlesRoutingModule,

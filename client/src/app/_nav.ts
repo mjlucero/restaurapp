@@ -44,6 +44,11 @@ export const navItems: NavData[] = [
     name: 'Articulos'
   },
   {
+    name: 'Rubros',
+    url: '/items/type',
+    icon: 'icon-pencil'
+  },
+  {
     name: 'Stock',
     url: '/article/stock',
     icon: 'icon-drop'

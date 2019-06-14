@@ -7,21 +7,24 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 // =====================================
 // COMPONENTS
 // =====================================
-import { FormComponent } from './components';
+import { FormComponent, GridComponent } from './components';
 
 @NgModule({
     declarations: [
-        FormComponent
+        FormComponent,
+        GridComponent
     ],
     imports: [
         MaterialModule,
         ReactiveFormsModule,
         FormsModule,
         HttpClientModule,
-        CommonModule
+        CommonModule,
+        NgxDatatableModule
     ],
     exports: [
         // Modules
@@ -30,8 +33,10 @@ import { FormComponent } from './components';
         FormsModule,
         HttpClientModule,
         CommonModule,
+        NgxDatatableModule,
         // Components
-        FormComponent
+        FormComponent,
+        GridComponent
     ]
 })
 

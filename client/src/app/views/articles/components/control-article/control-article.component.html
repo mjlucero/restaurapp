@@ -1,0 +1,133 @@
+<div class="row">
+  <div class="col-6">
+    <mat-card class="">
+      <mat-card-header>
+        <mat-card-title>{{title}}</mat-card-title>
+      </mat-card-header>
+      <form [formGroup]="stockForm" novalidate>
+        <!-- ====================== -->
+        <!-- DENOMINACION -->
+        <!-- ====================== -->
+        <mat-form-field appearance="outline" class="w-50">
+          <mat-label>Denominación</mat-label>
+          <input
+            matInput
+            placeholder="Denominación"
+            formControlName="denomination"
+            [errorStateMatcher]="matcher"
+          />
+          <mat-error *ngIf="stockForm.get('denomination').hasError('required')">
+            La denominación es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- ====================== -->
+        <!-- RUBROS -->
+        <!-- ====================== -->
+        <mat-form-field appearance="outline" class="d-inline-block w-50 float-right">
+            <mat-label>Rubro</mat-label>
+            <mat-select name="type" formControlName="type">
+              <mat-option value="">Seleccione un rubro</mat-option>
+              <mat-option *ngFor="let food of [1,2,3]" [value]="food">
+                {{food}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="stockForm.get('type').hasError('required')">
+              El rubro es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        <!-- ====================== -->
+        <!-- PRECIO DE VENTA -->
+        <!-- ====================== -->
+        <mat-form-field appearance="outline" class="d-inline-block w-50">
+          <mat-label>Precio de venta</mat-label>
+          <input
+            matInput
+            placeholder="Precio de venta"
+            formControlName="salePrice"
+            [errorStateMatcher]="matcher"
+          />
+          <mat-error *ngIf="stockForm.get('salePrice').hasError('required')">
+            El precio de venta es <strong>requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="stockForm.get('salePrice').hasError('pattern')">
+            Solo ingresá <strong>números</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- ====================== -->
+        <!-- PRECIO DE COMPRA -->
+        <!-- ====================== -->
+        <mat-form-field
+          appearance="outline"
+          class="d-inline-block w-50 float-right"
+        >
+          <mat-label>Precio de compra</mat-label>
+          <input
+            matInput
+            placeholder="Precio de compra"
+            formControlName="purchasePrice"
+            [errorStateMatcher]="matcher"
+          />
+          <mat-error
+            *ngIf="stockForm.get('purchasePrice').hasError('required')"
+          >
+            El precio de compra es <strong>requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="stockForm.get('purchasePrice').hasError('pattern')">
+            Solo ingresá <strong>números</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- ====================== -->
+        <!-- STOCK -->
+        <!-- ====================== -->
+        <mat-form-field appearance="outline" class="d-inline-block w-50">
+          <mat-label>Cantidad</mat-label>
+          <input
+            matInput
+            placeholder="Cantidad"
+            formControlName="stock"
+            [errorStateMatcher]="matcher"
+          />
+          <mat-error *ngIf="stockForm.get('stock').hasError('required')">
+            La cantidad es <strong>requerida</strong>
+          </mat-error>
+          <mat-error *ngIf="stockForm.get('stock').hasError('pattern')">
+            Solo ingresá <strong>números</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- ====================== -->
+        <!-- TAMAÑO -->
+        <!-- ====================== -->
+        <mat-form-field
+          appearance="outline"
+          class="d-inline-block w-50 float-right"
+        >
+          <mat-label>Tamaño (cm)</mat-label>
+          <input
+            matInput
+            placeholder="Tamaño"
+            formControlName="measure"
+            [errorStateMatcher]="matcher"
+          />
+          <mat-error *ngIf="stockForm.get('measure').hasError('required')">
+            El tamaño es <strong>requerida</strong>
+          </mat-error>
+          <mat-error *ngIf="stockForm.get('measure').hasError('pattern')">
+            Solo ingresá <strong>números</strong>
+          </mat-error>
+        </mat-form-field>
+        <!-- ====================== -->
+        <!-- INSUMO -->
+        <!-- ====================== -->
+        <div class="mb-2">
+          <mat-checkbox color="primary" class="mt-5">Insumo</mat-checkbox>
+        </div>
+        <button (click)="createArticle()" mat-raised-button color="primary">
+          Crear articulo
+        </button>
+        <button class="float-right" [routerLink]="['/article/stock']" mat-raised-button color="secondary">
+          Atrás
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</div>

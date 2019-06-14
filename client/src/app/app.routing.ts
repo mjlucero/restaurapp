@@ -79,6 +79,10 @@ export const routes: Routes = [
         loadChildren: './views/articles/articles.module#ArticlesModule'
       },
       {
+        path: 'items',
+        loadChildren: './views/types/types.module#TypesModule'
+      },
+      {
         path: 'widgets',
         loadChildren: './views/widgets/widgets.module#WidgetsModule'
       }
