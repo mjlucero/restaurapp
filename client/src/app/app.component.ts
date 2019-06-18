@@ -11,12 +11,8 @@ import { LoaderService, RoutingStateService } from './shared/services';
 export class AppComponent implements OnInit {
   constructor(
     private router: Router,
-    private routingStateService: RoutingStateService,
-    @Inject(LoaderService) loaderService,
-    @Inject(ViewContainerRef) viewContainerRef
+    private routingStateService: RoutingStateService
   ) {
-    // El loader se creará dentro de este componente
-    loaderService.setRootViewContainerRef(viewContainerRef);
     // Inicio del tracker de rutas
     routingStateService.loadRouting();
   }
