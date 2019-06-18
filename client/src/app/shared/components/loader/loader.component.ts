@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
     selector: 'app-loader',
     template: `
     <mat-progress-spinner
+        *ngIf="showLoader"
         class="loader"
         color="accent"
         mode="indeterminate"
@@ -23,5 +24,12 @@ import { Component } from '@angular/core';
 })
 
 export class LoaderComponent {
+    public showLoader: boolean = false;
     constructor() { }
+    show() {
+      this.showLoader = true;
+    }
+    hide() {
+      this.showLoader = false;
+    }
 }

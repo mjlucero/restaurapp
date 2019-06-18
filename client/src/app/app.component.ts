@@ -11,10 +11,12 @@ import { LoaderService, RoutingStateService } from './shared/services';
 export class AppComponent implements OnInit {
   constructor(
     private router: Router,
-    private routingStateService: RoutingStateService
+    private routingStateService: RoutingStateService,
+    private loaderService: LoaderService,
   ) {
     // Inicio del tracker de rutas
     routingStateService.loadRouting();
+    loaderService.addLoaderComponent();
   }
 
   ngOnInit() {

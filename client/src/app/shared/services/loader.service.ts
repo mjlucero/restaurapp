@@ -36,6 +36,13 @@ export class LoaderService {
         this.loaderComponentRef = componentRef;
     }
 
+    showLoader() {
+        this.loaderComponentRef.instance.show();
+    }
+    hideLoder() {
+        this.loaderComponentRef.instance.hide();
+    }
+
     destroyLoader() {
         this.appRef.detachView(this.loaderComponentRef.hostView);
         this.loaderComponentRef.destroy();

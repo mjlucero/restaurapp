@@ -24,7 +24,7 @@ export class InterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         // Show loader
-        this.loaderService.addLoaderComponent();
+        this.loaderService.showLoader();
 
         // Too can set other headers
         // Get the auth token from the service.
@@ -58,7 +58,7 @@ export class InterceptorService implements HttpInterceptor {
                 }),
                 finalize( () => {
                     // Delete loader
-                    this.loaderService.destroyLoader();
+                    this.loaderService.hideLoder();
                 })
             );
     }
