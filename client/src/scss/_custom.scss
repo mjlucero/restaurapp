@@ -21,3 +21,8 @@ form {
         width: 49% !important;
     }
 }
+
+.disabled {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}

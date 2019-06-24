@@ -7,8 +7,8 @@
       </mat-card-header>
     </mat-card>
   </div>
-  <div class="col-md-2 c-pointer" (click)="goToController('update')" *ngIf="selectedType">
-    <mat-card class="">
+  <div class="col-md-2 c-pointer" (click)="goToController('update')">
+    <mat-card [ngClass]="{'card-disabled': !selectedType}">
       <mat-card-header class="d-flex justify-content-center align-items-center icon-lg">
         <mat-card-title>Actualizar rubro</mat-card-title>
         <mat-icon [inline]="true">add</mat-icon>

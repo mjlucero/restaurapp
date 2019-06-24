@@ -7,10 +7,13 @@ import { Type } from '../../../shared/models';
 export class TypeService {
     private type: Type;
     constructor() { }
+
     getSelectedType() {
         return this.type || null;
     }
-    setType(type: Type) {
+    setType(type) {
+        type['active'] = type['active'] === 'activo' ? true : false;
+        console.log(type);
         this.type = type;
     }
 }

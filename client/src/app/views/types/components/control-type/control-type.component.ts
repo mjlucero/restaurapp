@@ -11,6 +11,7 @@ import { TypeService } from '../../services/type.service';
 
 export class ControlTypeComponent implements OnInit{
     public title: string;
+    public btnTitle: string;
     public typeForm: FormGroup;
     public matcher: ErrorStateForms;
     private type: Type;
@@ -21,6 +22,7 @@ export class ControlTypeComponent implements OnInit{
         private router: Router
     ) {
         this.title = 'Agregar rubro';
+        this.btnTitle = 'Crear rubro';
     }
 
     ngOnInit( ) {
@@ -34,10 +36,9 @@ export class ControlTypeComponent implements OnInit{
         });
 
         if ( this.type ) {
-            for (const key of Object.keys(this.type)) {
-                this.typeForm.get(key).setValue(this.type[key]);
-            }
+            this.typeForm.patchValue(this.type)
             this.title = 'Modificar rubro';
+            this.btnTitle = 'Actualizar rubro';
         }
 
         this.matcher = new ErrorStateForms();
@@ -52,7 +53,11 @@ export class ControlTypeComponent implements OnInit{
             return;
         }
 
-        this.apiService.post('type', this.typeForm.value).subscribe(
+        const request = this.type
+                    ? this.apiService.put(`type/${this.type['_id']}`, this.typeForm.value)
+                    : this.apiService.post('type', this.typeForm.value);
+
+        request.subscribe(
             (val) => {
                 console.log('Todo feel and cool');
                 this.router.navigate(['/items/type']);

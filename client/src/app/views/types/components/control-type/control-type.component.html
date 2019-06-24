@@ -27,7 +27,7 @@
           <mat-checkbox formControlName="active" color="primary" class="mt-5">Activo</mat-checkbox>
         </div>
         <button (click)="createType()" mat-raised-button color="primary">
-          Crear rubro
+          {{btnTitle}}
         </button>
         <button class="float-right" [routerLink]="['/items/type']" mat-raised-button color="secondary">
           Atrás

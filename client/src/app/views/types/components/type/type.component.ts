@@ -27,7 +27,7 @@ export class TypeComponent implements OnInit {
         this.getItems();
     }
     getItems() {
-        this.apiService.get('type')
+        this.apiService.get('type?limit=1000')
             .pipe(
                 tap( console.log ),
                 map(data => data['types']),
@@ -46,9 +46,12 @@ export class TypeComponent implements OnInit {
         this.selectedType = type;
     }
     goToController(type: 'add' | 'update') {
-        if ( type === 'add') {
-            this.typeService.setType(null);
+        if ( !this.selectedType && type === 'update' ) {
+            return;
         }
+
+        type === 'add' ? this.typeService.setType(null) : this.typeService.setType(this.selectedType);
+
         this.router.navigate(['/items/control-type']);
     }
 }
