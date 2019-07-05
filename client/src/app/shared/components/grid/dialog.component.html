@@ -1,0 +1,9 @@
+<div mat-dialog-content>
+  <h2>¿Desea eliminar el elemento?</h2>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
+    Eliminar
+  </button>
+</div>

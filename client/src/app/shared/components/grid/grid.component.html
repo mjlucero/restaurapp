@@ -1,14 +1,48 @@
 <div *ngIf="rows">
+    <button class="mb-1" (click)="addItem()" mat-raised-button>
+        <mat-icon [inline]="true">add</mat-icon> Agregar
+    </button>
     <ngx-datatable
         class="ngx-grid material fixed-row"
         [columnMode]="'force'"
-        [headerHeight]="'auto'"
-        [rowHeight]="'auto'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="50"
         [rows]="rows"
+        [scrollbarV]="true"
         [columns]="columns"
-        [selected]="selected"
-        [selectionType]="'single'"
-        (select)="onSelect($event)"
     >
+    <ngx-datatable-column [prop]="key" *ngFor="let key of arrKeys; let i = index">
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <div class="d-flex align-content-center">
+                {{value}}
+                <button class="btn-more_vert" (click)="setItem(row)" *ngIf="arrKeys.length - 1 === i" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                </button>
+            </div>
+        </ng-template>
+    </ngx-datatable-column>
+    <!-- <ngx-datatable-column prop="denomination" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{value}}</ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column prop="active" >
+        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            {{value}}
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="" width="80">
+    </ngx-datatable-column> -->
     </ngx-datatable>
 </div>
+
+<mat-menu #menu="matMenu">
+    <button (click)="editItem()" mat-menu-item>
+        <mat-icon>edit</mat-icon> Editar
+    </button>
+    <button (click)="openDialog()" mat-menu-item>
+        <mat-icon>delete</mat-icon> Eliminar
+    </button>
+</mat-menu>

@@ -45,13 +45,22 @@ export class TypeComponent implements OnInit {
     rowSelected(type: Type) {
         this.selectedType = type;
     }
-    goToController(type: 'add' | 'update') {
-        if ( !this.selectedType && type === 'update' ) {
-            return;
-        }
-
-        type === 'add' ? this.typeService.setType(null) : this.typeService.setType(this.selectedType);
-
+    goToController() {
         this.router.navigate(['/items/control-type']);
+    }
+
+    addItem() {
+        this.typeService.setType(null);
+        this.goToController();
+    }
+    editElement(row: Type) {
+        this.typeService.setType(row);
+        this.typeService.setAction('update')
+        this.goToController();
+    }
+    deleteElement(row: Type) {
+        this.typeService.setType(row);
+        this.typeService.setAction('delete');
+        this.goToController();
     }
 }

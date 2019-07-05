@@ -33,9 +33,9 @@ export class ApiService {
         return this.http.put(url, body);
     }
 
-    public delete(path: string, body: any) {
+    public delete(path: string) {
         const url = `${this.urlBase}${path}`;
-        return this.http.delete(url, body);
+        return this.http.delete(url);
     }
 
     private createParams(queryParams: Object): URLSearchParams {

@@ -20,25 +20,33 @@ export class ControlTypeComponent implements OnInit{
         private typeService: TypeService,
         private apiService: ApiService,
         private router: Router
-    ) {
-        this.title = 'Agregar rubro';
-        this.btnTitle = 'Crear rubro';
-    }
+    ) {  }
 
     ngOnInit( ) {
         this.type = this.typeService.getSelectedType();
+        console.log('type', this.type);
         this.createStockForm();
     }
     createStockForm() {
         this.typeForm = this.builder.group({
-            'denomination': ['', [Validators.required]],
-            'active': [true, [Validators.required]]
+            'denomination': ['', [Validators.required]]
         });
 
-        if ( this.type ) {
-            this.typeForm.patchValue(this.type)
-            this.title = 'Modificar rubro';
-            this.btnTitle = 'Actualizar rubro';
+        switch (this.typeService.getAction()) {
+            case 'delete':
+                this.typeForm.patchValue(this.type);
+                this.title = 'Borrar rubro';
+                this.btnTitle = 'Eliminar rubro';
+                break;
+            case 'update':
+                this.typeForm.patchValue(this.type);
+                this.title = 'Modificar rubro';
+                this.btnTitle = 'Actualizar rubro';
+                break;
+            default:
+                this.title = 'Agregar rubro';
+                this.btnTitle = 'Crear rubro';
+                break;
         }
 
         this.matcher = new ErrorStateForms();
@@ -53,13 +61,14 @@ export class ControlTypeComponent implements OnInit{
             return;
         }
 
-        const request = this.type
+        const request = this.typeService.getAction() === 'update'
                     ? this.apiService.put(`type/${this.type['_id']}`, this.typeForm.value)
+                    : this.typeService.getAction() === 'delete'
+                    ? this.apiService.delete(`type/${this.type['_id']}`)
                     : this.apiService.post('type', this.typeForm.value);
 
         request.subscribe(
             (val) => {
-                console.log('Todo feel and cool');
                 this.router.navigate(['/items/type']);
             },
             (err) => console.log('error', err)

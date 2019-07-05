@@ -11,12 +11,13 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 // =====================================
 // COMPONENTS
 // =====================================
-import { FormComponent, GridComponent } from './components';
+import { FormComponent, GridComponent, DialogComponent } from './components';
 
 @NgModule({
     declarations: [
         FormComponent,
-        GridComponent
+        GridComponent,
+        DialogComponent
     ],
     imports: [
         MaterialModule,
@@ -37,7 +38,8 @@ import { FormComponent, GridComponent } from './components';
         // Components
         FormComponent,
         GridComponent
-    ]
+    ],
+    entryComponents: [DialogComponent]
 })
 
 export class SharedModule { }
