@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 let Schema = mongoose.Schema;
 
 let typeSchema = new Schema({
@@ -12,7 +11,6 @@ typeSchema.pre('save', function (next) {
     let type = this;
 
     next();
-})
-
+});
 
 module.exports = mongoose.model('Type', typeSchema);

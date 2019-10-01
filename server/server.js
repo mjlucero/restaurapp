@@ -23,7 +23,7 @@ mongoose.connect(
     if (err) throw err;
 
     app.listen(process.env.PORT);
-    console.log("Database onlie");
+    console.log("Database online");
     console.log("App corriendo en el puerto " + process.env.PORT);
   }
 );

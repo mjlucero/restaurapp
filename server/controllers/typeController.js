@@ -7,7 +7,16 @@ exports.createType = type => type.save();
 exports.getType = id => Type.findById(id);
 
 //Get all users with pagination on querystring
-exports.getTypes = (from, limit) => Type.find({}).skip(from).limit(limit);
+exports.getTypes = async (from, limit) =>{
+    let types =  await Type.find({}).skip(from).limit(limit);
+
+    let total = await Type.countDocuments({});
+
+    return {
+        types,
+        total
+    };
+};
 
 //Update user
 exports.updateType = (id, body) => Type.findOneAndUpdate(id, body, { new: true, runValidators: true });

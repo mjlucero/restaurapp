@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 
-
 let Schema = mongoose.Schema;
 
 let articleSchema = new Schema({
     denomination: { type: String, required: [true, 'Denomination is required'] },
-    pucharasePrice: { type: Number },
+    purchasePrice: { type: Number },
     salePrice: { type: Number },
     stock: { type: Number },
     measure: { type: String },
@@ -17,7 +16,6 @@ let articleSchema = new Schema({
 articleSchema.pre('save', function (next) {
     let article = this;
     next();
-})
-
+});
 
 module.exports = mongoose.model('Article', articleSchema);

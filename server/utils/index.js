@@ -1,9 +1,9 @@
-module.exports.getSumOfArticlesPucharasePrice = (articles) => {
-    let sum;
+module.exports.getSumOfArticlesPurchasePrice = (articles) => {
+    let sum = 0;
     
     articles.forEach(article => {
-        sum += article.pucharasePrice || 0 * quantity || 0;
+        sum += article.salePrice * article.quantity;
     });
 
     return sum;
-}
+};

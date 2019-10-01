@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
-
 let Schema = mongoose.Schema;
 
-let articleManufacturedSchema = new Schema({
+let manufacturedArticleSchema = new Schema({
     denomination: { type: String, required: [true, 'Denomination is required'] },
     salePrice: { type: Number },
     estimatedTime: { type: Number },
     articles: [
         {
+            _id : false,
             quantity: { type: Number, required: [true, 'Quantity is required'] },
             article: { type: Schema.ObjectId, ref: 'Article' }
         }
@@ -16,10 +16,9 @@ let articleManufacturedSchema = new Schema({
     active: { type: Boolean, default: true }
 });
 
-articleManufacturedSchema.pre('save', function (next) {
-    let articleManufactured = this;
+manufacturedArticleSchema.pre('save', function (next) {
+    let manufacturedArticle = this;
     next();
-})
+});
 
-
-module.exports = mongoose.model('ArticleManufactured', articleManufacturedSchema);
+module.exports = mongoose.model('ManufacturedArticle', manufacturedArticleSchema);

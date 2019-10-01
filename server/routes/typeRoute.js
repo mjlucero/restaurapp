@@ -4,22 +4,23 @@ const app = express();
 const Type = require('../models/type');
 const TypeController = require('../controllers/typeController');
 
-app.get('/type', async function (req, res) {
+app.get('/types', async function (req, res) {
     let from = req.query.from || 0;
     from = Number(from);
 
     let limit = req.query.limit || 5;
     limit = Number(limit);
 
-    let types = await TypeController.getTypes(from, limit);
+    let response = await TypeController.getTypes(from, limit);
 
     res.json({
         ok: true,
-        types
+        types: response.types,
+        total: response.total
     });
 });
 
-app.get('/type/:id', async function (req, res) {
+app.get('/types/:id', async function (req, res) {
     let id = req.params.id;
 
     let type = await TypeController.getType(id);
@@ -30,7 +31,7 @@ app.get('/type/:id', async function (req, res) {
     });
 });
 
-app.post('/type', async function (req, res) {
+app.post('/types', async function (req, res) {
     let body = req.body;
 
     let type = new Type({
@@ -45,7 +46,7 @@ app.post('/type', async function (req, res) {
     });
 });
 
-app.put('/type/:id', async function (req, res) {
+app.put('/types/:id', async function (req, res) {
     let id = req.params.id;
     let body = req.body;
 
@@ -58,7 +59,7 @@ app.put('/type/:id', async function (req, res) {
 
 });
 
-app.delete('/type/:id', async function (req, res) {
+app.delete('/types/:id', async function (req, res) {
     let id = req.params.id;
 
     let typeDeleted = await TypeController.deleteType(id);
