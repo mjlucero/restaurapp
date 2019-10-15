@@ -6,6 +6,6 @@ app.use(require("./loginRoute"));
 app.use(require("./typeRoute"));
 app.use(require("./articleRoute"));
 app.use(require("./manufacturedArticleRoute"));
-app.use(require("./pedido"));
+app.use(require("./orderRoute"));
 
 module.exports = app;

@@ -1,8 +1,8 @@
 const Order = require("../models/order");
-const { setSubtotalOfDetails } = require("../utils");
+const { getSubtotalOfDetails } = require("../utils");
 
-export const createOrder = (date, number, state, estimatedTimeEnd, shippingType, details, client) => {
-  setSubtotalOfDetails(details);
+const createOrder = (date, number, state, estimatedTimeEnd, shippingType, details, client) => {
+  let mappedDetails = getSubtotalOfDetails(details);
 
   let order = new Order({
     date,
@@ -10,7 +10,7 @@ export const createOrder = (date, number, state, estimatedTimeEnd, shippingType,
     state,
     estimatedTimeEnd,
     shippingType,
-    details,
+    details: mappedDetails,
     client
   });
 
@@ -29,4 +29,30 @@ const updateOrder = (id, date, number, state, estimatedTimeEnd, shippingType, de
   };
 
   return Order.findOneAndUpdate(id, order, { new: true, runValidators: true });
+};
+
+const getOrders = async (from, limit) => {
+  let orders = await Order.find({})
+    .skip(from)
+    .limit(limit);
+
+  let total = await Order.countDocuments({});
+
+  return {
+    orders,
+    total
+  };
+};
+
+const getOrderById = id =>
+  Order.findById(id)
+    .populate("client", "name lastname telephone email")
+    .populate("details.article.detail", "denomination salePrice")
+    .populate("details.manufacturedArticle.detail", "denomination salePrice");
+
+module.exports = {
+  createOrder,
+  updateOrder,
+  getOrders,
+  getOrderById
 };

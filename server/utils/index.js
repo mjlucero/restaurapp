@@ -8,10 +8,12 @@ module.exports.getSumOfArticlesPurchasePrice = articles => {
   return sum;
 };
 
-module.exports.setSubtotalOfDetails = details => {
-  details.forEach(detail => {
-    detail.subtotal = 0;
-    detail.subtotal += detail.article.salePrice * detail.quantity;
-    detail.subtotal += detail.manufacturedArticle.salePrice * detail.quantity;
+module.exports.getSubtotalOfDetails = details => {
+  return details.map(d => {
+    d.subtotal = 0;
+    d.subtotal += d.article.detail.salePrice * d.article.quantity;
+    d.subtotal += d.manufacturedArticle.detail.salePrice * d.manufacturedArticle.quantity;
+
+    return d;
   });
 };

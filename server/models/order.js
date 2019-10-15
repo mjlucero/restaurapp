@@ -8,7 +8,7 @@ let orderSchema = new Schema({
   number: { type: Number },
   state: { type: Number },
   estimatedTimeEnd: { type: Date },
-  shippingType: { type: Number },
+  shippingType: { type: String },
   details: [
     {
       _id: false,
@@ -19,7 +19,7 @@ let orderSchema = new Schema({
       },
       manufacturedArticle: {
         quantity: { type: Number, required: [true, "Manufactured article quantity is required"] },
-        detail: { type: Schema.ObjectId, ref: "manufacturedArticle" }
+        detail: { type: Schema.ObjectId, ref: "ManufacturedArticle" }
       }
     }
   ],

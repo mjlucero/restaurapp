@@ -5,7 +5,7 @@ const orderController = require("../controllers/orderController");
 const asyncHandler = require("../middlewares/async-handler");
 
 app.post(
-  "/order",
+  "/orders",
   asyncHandler(async (req, res, next) => {
     let { date, number, state, estimatedTimeEnd, shippingType, details, client } = req.body;
 
@@ -22,6 +22,39 @@ app.post(
     res.json({
       ok: true,
       order: newOrder
+    });
+  })
+);
+
+app.get(
+  "/orders",
+  asyncHandler(async (req, res, next) => {
+    let from = req.query.from || 0;
+    from = Number(from);
+
+    let limit = req.query.limit || 5;
+    limit = Number(limit);
+
+    let response = await orderController.getOrders(from, limit);
+
+    res.json({
+      ok: true,
+      orders: response.orders,
+      total: response.total
+    });
+  })
+);
+
+app.get(
+  "/orders/:id",
+  asyncHandler(async (req, res, next) => {
+    let id = req.params.id;
+
+    let order = await orderController.getOrderById(id);
+
+    res.json({
+      ok: true,
+      order
     });
   })
 );
